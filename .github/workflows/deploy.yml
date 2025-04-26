@@ -1,0 +1,47 @@
+name: Build and Deploy target-ai-consumer Docker Image
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build Docker image
+        run: docker build -t target-ai-consumer:latest .
+
+      - name: Save Docker image to tar file
+        run: docker save target-ai-consumer:latest -o target-ai-consumer.tar
+
+      - name: Upload Docker image tar to VPS
+        uses: appleboy/scp-action@v0.1.1
+        with:
+          source: "target-ai-consumer.tar"
+          target: "/home/${{ secrets.VPS_USER }}/"
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.VPS_PORT }}
+
+      - name: Load Docker image on VPS and run container
+        uses: appleboy/ssh-action@v0.1.5
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.VPS_PORT }}
+          script: |
+            docker stop target-ai-consumer || true
+            docker rm target-ai-consumer || true
+            docker rmi target-ai-consumer:latest || true
+            docker load -i /home/${{ secrets.VPS_USER }}/target-ai-consumer.tar
+            docker compose up -d

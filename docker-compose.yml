@@ -1,0 +1,31 @@
+# Example of a docker-compose file for the target-ai-consumer service
+
+services:
+  # Configuration for the target-ai-consumer service
+  target-ai-consumer:
+    # Docker image to be used for the service
+    image: target-ai-consumer
+
+    # Running mode
+    command: "both"
+
+    # Name of the container
+    container_name: target-ai-consumer
+
+    # Mounting volumes for the service
+    volumes:
+      - "./settings.toml:/usr/src/target-ai-consumer/settings.toml" # Mounting settings.toml file
+      - "./data:/usr/src/target-ai-consumer/data" # Mounting data directory
+
+    # Environment variables for the service
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all # Setting NVIDIA_VISIBLE_DEVICES environment variable
+
+    # Deployment configuration for the service
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia # Using NVIDIA driver
+              count: all # Using all available devices
+              capabilities: [gpu] # Specifying GPU capabilities

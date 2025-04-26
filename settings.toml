@@ -1,0 +1,45 @@
+# Example configuration file for target-ai-consumer
+
+polling_interval = 1 # The interval in seconds between polling the queue for new elements.
+
+# Interfaces configuration
+[interfaces]
+
+# Database interface configuration
+[interfaces.database]
+module = "mysql" # The module used for the database interface.
+
+# The configuration for the MySQL database interface.
+[interfaces.database.mysql]
+class = "MySQLDatabase"           # The class name of the database interface.
+host = "localhost"                # The hostname of the database server.
+port = 3306                       # The port of the database server.
+user = "CONSUMER_DB"              # The username for the database connection.
+password = "CONSUMER_DB_PASSWORD" # The password for the database connection.
+database = "DB"                   # The name of the database.
+
+# Queue interface configuration
+[interfaces.queue]
+module = "mysql" # The module used for the queue interface.
+
+# The configuration for the MySQL queue interface.
+[interfaces.queue.mysql]
+class = "MySQLQueue"                 # The class name of the queue interface.
+host = "localhost"                   # The hostname of the queue server.
+port = 3306                          # The port of the queue server.
+user = "CONSUMER_QUEUE"              # The username for the queue connection.
+password = "CONSUMER_QUEUE_PASSWORD" # The password for the queue connection.
+database = "QUEUE"                   # The name of the queue database.
+
+# Storage interface configuration
+[interfaces.storage]
+module = "mysql" # The module used for the storage interface.
+
+# The configuration for the MySQL storage interface.
+[interfaces.storage.mysql]
+class = "MySQLStorage"                 # The class name of the storage interface.
+host = "localhost"                     # The hostname of the storage server.
+port = 3306                            # The port of the storage server.
+user = "CONSUMER_STORAGE"              # The username for the storage connection.
+password = "CONSUMER_STORAGE_PASSWORD" # The password for the storage connection.
+database = "STORAGE"                   # The name of the storage database.

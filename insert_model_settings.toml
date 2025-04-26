@@ -1,0 +1,23 @@
+[interfaces]
+
+[interfaces.database]
+module = "mysql"
+
+[interfaces.database.mysql]
+class = "MySQLDatabase"
+host = "localhost"
+port = 3306
+user = "INSERT_MODEL_DB"
+password = "INSERT_MODEL_DB_PASSWORD"
+database = "DB"
+
+[interfaces.storage]
+module = "mysql"
+
+[interfaces.storage.mysql]
+class = "MySQLStorage"
+host = "localhost"
+port = 3306
+user = "INSERT_MODEL_STORAGE"
+password = "INSERT_MODEL_STORAGE_PASSWORD"
+database = "STORAGE"

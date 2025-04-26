@@ -1,0 +1,34 @@
+[interfaces]
+
+[interfaces.database]
+module = "mysql"
+
+[interfaces.database.mysql]
+class = "MySQLDatabase"
+host = "localhost"
+port = 3306
+user = "ENQUEUE_REPORT_DB"
+password = "ENQUEUE_REPORT_DB_PASSWORD"
+database = "DB"
+
+[interfaces.queue]
+module = "mysql"
+
+[interfaces.queue.mysql]
+class = "MySQLQueue"
+host = "localhost"
+port = 3306
+user = "ENQUEUE_REPORT_QUEUE"
+password = "ENQUEUE_REPORT_QUEUE_PASSWORD"
+database = "QUEUE"
+
+[interfaces.storage]
+module = "mysql"
+
+[interfaces.storage.mysql]
+class = "MySQLStorage"
+host = "localhost"
+port = 3306
+user = "ENQUEUE_REPORT_STORAGE"
+password = "ENQUEUE_REPORT_STORAGE_PASSWORD"
+database = "STORAGE"
